@@ -6,14 +6,16 @@ Diagrama ER para las entidades principales del sistema.
 erDiagram
     ROL ||--o{ USUARIO : tiene
     USUARIO ||--o{ PRODUCTO : publica
+    CATEGORIA_PRODUCTO ||--o{ PRODUCTO : clasifica
+    UNIDAD_MEDIDA ||--o{ PRODUCTO : define
     USUARIO ||--o{ SOLICITUD_COMPRA : realiza
     PRODUCTO ||--o{ SOLICITUD_COMPRA : recibe
     SOLICITUD_COMPRA ||--o| ACUERDO_COMERCIAL : genera
     ACUERDO_COMERCIAL }o--|| PUNTO_ENTREGA : se_programa_en
     ACUERDO_COMERCIAL ||--o| ENTREGA : culmina_en
+    ENTREGA ||--o{ SEGUIMIENTO_ENTREGA : registra
     ACUERDO_COMERCIAL ||--o{ MENSAJE_ACUERDO : contiene
     ACUERDO_COMERCIAL ||--o{ REPORTE_INCIDENCIA : puede_generar
-    ENTREGA ||--o{ SEGUIMIENTO_ENTREGA : registra
     USUARIO ||--o{ MENSAJE_ACUERDO : envia
     USUARIO ||--o{ SEGUIMIENTO_ENTREGA : actualiza
     USUARIO ||--o{ REPORTE_INCIDENCIA : reporta
@@ -36,13 +38,28 @@ erDiagram
         date fecha_registro
     }
 
+    CATEGORIA_PRODUCTO {
+        int id_categoria PK
+        string nombre
+        string descripcion
+        string estado
+    }
+
+    UNIDAD_MEDIDA {
+        int id_unidad PK
+        string nombre
+        string abreviatura
+        string descripcion
+        string estado
+    }
+
     PRODUCTO {
         int id_producto PK
         int id_productor FK
+        int id_categoria FK
+        int id_unidad FK
         string nombre
-        string categoria
         string descripcion
-        string unidad_medida
         decimal cantidad_disponible
         decimal precio_referencial
         string estado_producto

@@ -8,6 +8,7 @@ flowchart LR
     Comprador[Comprador]
     Productor[Productor]
     Admin[Asociación / Administrador]
+
     subgraph Sistema["Sistema La Esperanza - Gestión Agrícola"]
         UC1((Iniciar sesión))
         UC2((Consultar catálogo de productos))
@@ -19,6 +20,7 @@ flowchart LR
         UC8((Confirmar recepción))
         UC9((Solicitar cancelación))
         UC10((Reportar inconformidad))
+
         UC11((Gestionar mis productos))
         UC12((Actualizar cantidades y precio referencial))
         UC13((Consultar solicitudes recibidas))
@@ -29,6 +31,7 @@ flowchart LR
         UC18((Marcar entrega realizada))
         UC19((Justificar incumplimiento))
         UC20((Consultar historial de ventas))
+
         UC21((Gestionar usuarios))
         UC22((Crear usuario))
         UC23((Editar usuario))
@@ -38,11 +41,16 @@ flowchart LR
         UC27((Forzar cancelación))
         UC28((Ver estadísticas generales))
         UC29((Supervisar productos, acuerdos y entregas))
-        UC30((Gestionar mi perfil))
-        UC31((Cambiar PIN))
+        UC30((Gestionar categorías de producto))
+        UC31((Gestionar unidades de medida))
+
+        UC32((Gestionar mi perfil))
+        UC33((Cambiar PIN))
     end
+
     Invitado --> UC2
     Invitado --> UC3
+
     Comprador --> UC1
     Comprador --> UC2
     Comprador --> UC3
@@ -53,8 +61,9 @@ flowchart LR
     Comprador --> UC8
     Comprador --> UC9
     Comprador --> UC10
-    Comprador --> UC30
-    Comprador --> UC31
+    Comprador --> UC32
+    Comprador --> UC33
+
     Productor --> UC1
     Productor --> UC5
     Productor --> UC11
@@ -67,8 +76,9 @@ flowchart LR
     Productor --> UC18
     Productor --> UC19
     Productor --> UC20
-    Productor --> UC30
-    Productor --> UC31
+    Productor --> UC32
+    Productor --> UC33
+
     Admin --> UC1
     Admin --> UC21
     Admin --> UC22
@@ -81,6 +91,9 @@ flowchart LR
     Admin --> UC29
     Admin --> UC30
     Admin --> UC31
+    Admin --> UC32
+    Admin --> UC33
+
     UC4 -. incluye .-> UC5
     UC14 -. incluye .-> UC15
     UC15 -. incluye .-> UC16
@@ -93,4 +106,6 @@ flowchart LR
     UC21 -. incluye .-> UC23
     UC21 -. incluye .-> UC24
     UC21 -. incluye .-> UC25
+    UC11 -. usa .-> UC30
+    UC11 -. usa .-> UC31
 ```
