@@ -1,10 +1,30 @@
+::: {custom-style="Portada"}
+
+UNIVERSIDAD MARIANO GÁLVEZ DE GUATEMALA
+
+FACULTAD DE INGENIERÍA EN SISTEMAS
+
+ANÁLISIS DE SISTEMAS I
+
+PROYECTO II — DERCAS
+
+Sistema de Gestión y Comercialización Agrícola "La Esperanza"
+
+Alex Alvarado
+
+Guatemala, 17 de abril de 2026
+
+:::
+
+```{=openxml}
+<w:p><w:r><w:br w:type="page"/></w:r></w:p>
+```
+
 # DERCAS — Sistema de Gestión y Comercialización Agrícola "La Esperanza"
 
 **Fase II — Análisis de Sistemas I**
 
 Documento de Especificación de Requerimientos, Casos de Uso, Actividades y Soporte para el sistema de gestión y comercialización agrícola propuesto para la comunidad rural "La Esperanza".
-
----
 
 ## 1. Descripción General del Sistema
 
@@ -46,8 +66,6 @@ No se contempla intercambio de datos con sistemas contables, bancarios o de log�
 - No procesa pagos electrónicos ni actúa como pasarela bancaria. El campo `estado_pago` es solamente un registro declarativo del productor o del comprador.
 - No resuelve arbitrajes, sanciones o conflictos: los incidentes quedan registrados en el sistema, pero la mediación y la sanción son responsabilidad directa del comité de la Asociación por fuera del software.
 - No ofrece logística ni transporte: el productor y el comprador acuerdan quién traslada el producto, y el sistema solo registra el punto de entrega seleccionado del catálogo mantenido por la Asociación.
-
----
 
 ### 1.2 Usuarios del Sistema
 
@@ -124,8 +142,6 @@ El sistema distingue **cuatro perfiles de usuario**, cada uno con alcance, respo
   - Consultar reportes agregados y anonimizados (UC28).
   - Gestionar su propio perfil (UC32, UC33).
 
----
-
 ### 1.3 Supuestos y Dependencias
 
 #### 1.3.1 Supuestos
@@ -191,10 +207,6 @@ Los siguientes supuestos se asumen como ciertos durante el diseño y desarrollo 
 | SMS no llega o el proveedor sube precios | Gateway SMS disponible y económico | PIN local como mecanismo principal; SMS solo para verificación inicial y recuperación. |
 | Alta rotación en el comité dificulta custodia | Asociación estable | Capacitación documentada y roles delegables; más de un administrador registrado. |
 | La comunidad no adopta el sistema | Voluntad de adopción | Piloto con 5–10 productores y 2–3 compradores antes del despliegue general. |
-
----
-
----
 
 ## 2. Requerimientos Funcionales
 
@@ -268,8 +280,6 @@ Cada requerimiento se identifica con el prefijo **RF**, agrupado por módulo. La
 | **Excepciones** | Datos fuera de formato (teléfono no numérico, dirección vacía): validación inline. |
 | **Prioridad** | **Media** |
 
----
-
 ### 2.2 Gestión de Productos (Productor)
 
 #### RF07 — Publicar nuevo producto
@@ -316,8 +326,6 @@ Cada requerimiento se identifica con el prefijo **RF**, agrupado por módulo. La
 | **Excepciones** | Sin productos publicados: pantalla vacía con CTA para publicar. |
 | **Prioridad** | **Media** |
 
----
-
 ### 2.3 Catálogo Público y Solicitud de Compra
 
 #### RF11 — Consultar catálogo de productos
@@ -352,8 +360,6 @@ Cada requerimiento se identifica con el prefijo **RF**, agrupado por módulo. La
 | **Comportamiento esperado** | La cantidad no puede exceder la disponibilidad publicada. Se calcula un total de referencia para mostrar, pero el total real se define en el acuerdo. |
 | **Excepciones** | Cantidad mayor a la disponible: rechazo con sugerencia de ajustar. Producto retirado entre carga y envío: error con invitación a revisar catálogo. Comprador con cuenta suspendida: rechazo con mensaje. |
 | **Prioridad** | **Alta** |
-
----
 
 ### 2.4 Gestión del Acuerdo Comercial
 
@@ -456,8 +462,6 @@ Cada requerimiento se identifica con el prefijo **RF**, agrupado por módulo. La
 | **Excepciones** | Sin acuerdos en la pestaña: estado vacío descriptivo. |
 | **Prioridad** | **Alta** |
 
----
-
 ### 2.5 Catálogos Maestros (Administrador)
 
 #### RF23 — Gestionar categorías de producto
@@ -492,8 +496,6 @@ Cada requerimiento se identifica con el prefijo **RF**, agrupado por módulo. La
 | **Comportamiento esperado** | Solo los puntos activos aparecen al formalizar un acuerdo. Los acuerdos existentes conservan el punto asignado aunque luego se desactive. |
 | **Excepciones** | Nombre duplicado: rechazo. |
 | **Prioridad** | **Media** |
-
----
 
 ### 2.6 Gestión de Usuarios (Administrador)
 
@@ -552,8 +554,6 @@ Cada requerimiento se identifica con el prefijo **RF**, agrupado por módulo. La
 | **Excepciones** | Sin usuarios en el filtro: estado vacío. |
 | **Prioridad** | **Media** |
 
----
-
 ### 2.7 Incidencias y Supervisión
 
 #### RF31 — Reportar inconformidad (comprador o productor)
@@ -589,8 +589,6 @@ Cada requerimiento se identifica con el prefijo **RF**, agrupado por módulo. La
 | **Excepciones** | Acuerdo ya confirmado: no se permite. |
 | **Prioridad** | **Media** |
 
----
-
 ### 2.8 Reportes y Analítica
 
 #### RF34 — Reportes generales de la Asociación
@@ -625,8 +623,6 @@ Cada requerimiento se identifica con el prefijo **RF**, agrupado por módulo. La
 | **Comportamiento esperado** | Visible para las partes del acuerdo y el administrador. Inmutable desde la interfaz: los registros no se editan ni se borran. |
 | **Excepciones** | Acuerdo inexistente: pantalla de error. |
 | **Prioridad** | **Alta** |
-
----
 
 ### 2.9 Auditoría, Notificaciones y Sincronización
 
@@ -674,8 +670,6 @@ Cada requerimiento se identifica con el prefijo **RF**, agrupado por módulo. La
 | **Excepciones** | Conflicto de versión: se muestra al usuario la divergencia y se descarta la acción local. Pérdida del almacén local: se exige reconectar para reintentar. |
 | **Prioridad** | **Media** |
 
----
-
 ### Matriz resumen de prioridades
 
 | Prioridad | Cantidad | Criterio |
@@ -685,10 +679,6 @@ Cada requerimiento se identifica con el prefijo **RF**, agrupado por módulo. La
 | **Baja** | 0 | — |
 
 *La prioridad se usa como criterio para planificar la implementación en fases: los RF de prioridad Alta deben estar operativos en la primera iteración del sistema; los de prioridad Media en la segunda; los de prioridad Baja pueden diferirse.*
-
----
-
----
 
 ## 3. Requerimientos No Funcionales
 
@@ -717,8 +707,6 @@ La carga inicial consumirá a lo sumo **300 KB** de datos; la navegación típic
 #### RNF05 — Uso de almacenamiento local
 
 La aplicación no debe ocupar más de **10 MB** de almacenamiento en el dispositivo del cliente para catálogo cacheado, cola de sincronización offline y datos de sesión. Al aproximarse a ese límite, se aplica política LRU sobre el catálogo antiguo.
-
----
 
 ### 3.2 Seguridad
 
@@ -758,8 +746,6 @@ Los usuarios con rol administrador deben utilizar un PIN de **6 dígitos** en lu
 
 La aplicación sirve los encabezados **Content-Security-Policy**, **X-Frame-Options: DENY**, **X-Content-Type-Options: nosniff** y **Referrer-Policy: strict-origin-when-cross-origin** para mitigar XSS, clickjacking y filtración de referer.
 
----
-
 ### 3.3 Escalabilidad
 
 #### RNF15 — Arquitectura sin estado
@@ -777,8 +763,6 @@ La generación de reportes pesados (RF34) se realiza en modo asíncrono (job en 
 #### RNF18 — Despliegue reproducible
 
 La infraestructura debe poder replicarse en un entorno nuevo mediante archivos de configuración versionados (Docker Compose, Terraform o equivalente) para habilitar staging, producción y eventualmente réplicas regionales.
-
----
 
 ### 3.4 Usabilidad
 
@@ -812,8 +796,6 @@ Cada rol tiene un menú lateral (escritorio) y barra inferior (móvil) estables,
 
 Un usuario nuevo con alfabetización digital básica debe poder realizar las operaciones principales del flujo (publicar un producto, aceptar una solicitud, confirmar recepción) tras una **sesión de capacitación inicial de 30 minutos**. Este requerimiento se valida con pruebas con usuarios reales antes del despliegue.
 
----
-
 ### 3.5 Mantenibilidad
 
 #### RNF26 — Separación en capas
@@ -840,8 +822,6 @@ El servidor registra en logs estructurados (JSON) los eventos relevantes: inicio
 
 Dado que la Asociación no cuenta con personal técnico propio, la entrega final incluye un **manual operativo** con los costos recurrentes de mantenimiento (hosting, dominio, SMS, respaldo) y una estimación de costo del proveedor externo de soporte. Este documento acompaña al código fuente.
 
----
-
 ### 3.6 Compatibilidad
 
 #### RNF32 — Navegadores soportados
@@ -859,8 +839,6 @@ La aplicación cumple con los criterios de **PWA** (manifiesto web, service work
 #### RNF35 — Independencia de proveedores cerrados
 
 La solución evita dependencias cerradas del lado del cliente que impidan cambiar de proveedor de infraestructura. El almacenamiento, el gateway SMS y el hosting se pueden intercambiar sin reescribir el código de la lógica de negocio.
-
----
 
 ### 3.7 Legalidad
 
@@ -897,10 +875,6 @@ La bitácora de auditoría del sistema (RF37) está disponible para consultoría
 
 La Asociación Comunitaria "La Esperanza" es el **responsable del tratamiento** de los datos. El proveedor de desarrollo y de infraestructura actúan como **encargados del tratamiento** y no pueden usar los datos para fines distintos a operar el sistema.
 
----
-
----
-
 ## 4. Casos de Uso
 
 El diagrama general de actores y casos de uso se mantiene en [modelo-casos-de-uso.md](./modelo-casos-de-uso.md), con las actualizaciones hechas en la fase 2 (UC12 reformulado, UC34 añadido, estados intermedios formalizados, flechas *genera* desde UC14/UC15/UC18/UC8 hacia UC17).
@@ -908,8 +882,6 @@ El diagrama general de actores y casos de uso se mantiene en [modelo-casos-de-us
 En esta sección se detallan los casos de uso que corresponden a **procesos núcleo automatizados** (los que en la Sección 2 fueron marcados de prioridad Alta). Para cada uno se especifican actores, precondiciones, postcondiciones, flujo principal, flujos alternativos, excepciones y la trazabilidad con los requerimientos funcionales que lo implementan.
 
 Los casos de uso no detallados aquí (UC2, UC3, UC6, UC13, UC20, UC21 como contenedor, UC23, UC24, UC25, UC28, UC29, UC30, UC31, UC33, UC34, UC32) son de tipo CRUD o consulta directa y quedan cubiertos por las Historias de Usuario de la Sección 6.
-
----
 
 ### CU-01 — Iniciar sesión
 
@@ -947,8 +919,6 @@ Los casos de uso no detallados aquí (UC2, UC3, UC6, UC13, UC20, UC21 como conte
 - **E3. PIN olvidado.** El usuario selecciona "Olvidé mi PIN" y el sistema inicia UC de recuperación por SMS (RF05).
 - **E4. Sin conexión.** El sistema informa que se requiere internet para iniciar sesión y sugiere reintentar.
 
----
-
 ### CU-02 — Realizar solicitud de compra
 
 | Campo | Detalle |
@@ -985,8 +955,6 @@ Los casos de uso no detallados aquí (UC2, UC3, UC6, UC13, UC20, UC21 como conte
 - **E2. Producto retirado entre la carga y el envío.** El sistema muestra "Este producto ya no está disponible" y ofrece volver al catálogo.
 - **E3. Comprador suspendido.** El sistema rechaza con mensaje específico y log de intento.
 - **E4. Sin conexión.** La solicitud se registra en cola local y se sincroniza al reconectar (RF40). Si al sincronizar el producto ya no está disponible, se notifica al comprador y se descarta la acción.
-
----
 
 ### CU-03 — Aceptar solicitud y registrar acuerdo comercial
 
@@ -1026,8 +994,6 @@ Los casos de uso no detallados aquí (UC2, UC3, UC6, UC13, UC20, UC21 como conte
 - **E4. Solicitud ya tomada por otra vía o cancelada.** El sistema informa que el estado cambió y refresca el detalle.
 - **E5. Sin conexión.** La aceptación se encola y se sincroniza al reconectar; se advierte al productor que el acuerdo aún no es visible para el comprador hasta sincronizar.
 
----
-
 ### CU-04 — Actualizar seguimiento de la entrega
 
 | Campo | Detalle |
@@ -1062,8 +1028,6 @@ Los casos de uso no detallados aquí (UC2, UC3, UC6, UC13, UC20, UC21 como conte
 - **E1. Transición no válida.** El sistema rechaza con "No se puede saltar a ese estado desde el actual".
 - **E2. Acuerdo cancelado.** No se permite ningún avance; el detalle muestra los botones deshabilitados.
 - **E3. Sin conexión.** La transición y el comentario se encolan; al sincronizar se aplican en orden.
-
----
 
 ### CU-05 — Marcar entrega realizada y confirmar recepción
 
@@ -1102,8 +1066,6 @@ Los casos de uso no detallados aquí (UC2, UC3, UC6, UC13, UC20, UC21 como conte
 - **E1. Productor marca entrega prematuramente.** El estado solo avanza si el anterior era *en_ruta*; caso contrario, rechazo.
 - **E2. Comprador confirma antes de la marca del productor.** No permitido; el botón aparece solo cuando el estado es *entregado_productor*.
 
----
-
 ### CU-06 — Consultar catálogo de productos
 
 | Campo | Detalle |
@@ -1133,8 +1095,6 @@ Los casos de uso no detallados aquí (UC2, UC3, UC6, UC13, UC20, UC21 como conte
 
 - **E1. Sin productos coincidentes con el filtro.** El sistema muestra estado vacío con mensaje amigable.
 - **E2. Sin conexión.** El sistema carga el catálogo cacheado localmente y muestra aviso "Versión local — última actualización {fecha}".
-
----
 
 ### CU-07 — Solicitar cancelación de acuerdo
 
@@ -1170,8 +1130,6 @@ Los casos de uso no detallados aquí (UC2, UC3, UC6, UC13, UC20, UC21 como conte
 
 - **E1. Acuerdo ya confirmado.** El sistema rechaza con "Este acuerdo ya fue confirmado por ambas partes".
 - **E2. Motivo vacío.** El botón permanece deshabilitado hasta completar el motivo.
-
----
 
 ### CU-08 — Reportar inconformidad
 
@@ -1209,8 +1167,6 @@ Los casos de uso no detallados aquí (UC2, UC3, UC6, UC13, UC20, UC21 como conte
 
 - **E1. Descripción vacía.** El botón permanece deshabilitado.
 - **E2. Acuerdo cancelado hace más de 30 días.** El sistema rechaza: el caso debe tratarse por los canales de la Asociación directamente.
-
----
 
 ### CU-09 — Resolver incidencia (registrar decisión del comité)
 
@@ -1250,8 +1206,6 @@ Los casos de uso no detallados aquí (UC2, UC3, UC6, UC13, UC20, UC21 como conte
 - **E1. Resolución vacía al marcar *resuelto*.** El botón permanece deshabilitado.
 - **E2. Usuario sin rol admin.** El sistema rechaza con 403 y registra el intento (RF39, RF37).
 
----
-
 ### CU-10 — Registrar nuevo usuario (alta por la Asociación)
 
 | Campo | Detalle |
@@ -1287,8 +1241,6 @@ Los casos de uso no detallados aquí (UC2, UC3, UC6, UC13, UC20, UC21 como conte
 - **E2. Teléfono con formato inválido.** Validación inline.
 - **E3. Administrador sin permisos.** 403 y log de intento.
 
----
-
 ### CU-11 — Editar producto propio
 
 | Campo | Detalle |
@@ -1321,8 +1273,6 @@ Los casos de uso no detallados aquí (UC2, UC3, UC6, UC13, UC20, UC21 como conte
 - **E1. Producto ajeno.** 403.
 - **E2. Valores inválidos.** Validación inline en el campo.
 
----
-
 ### CU-12 — Acceder al catálogo como invitado
 
 | Campo | Detalle |
@@ -1349,8 +1299,6 @@ Los casos de uso no detallados aquí (UC2, UC3, UC6, UC13, UC20, UC21 como conte
 
 - **E1. Sin conexión.** Si es la primera visita no hay datos cacheados y el sistema muestra "Se requiere conexión para la primera carga".
 
----
-
 ### Trazabilidad Casos de Uso ↔ Requerimientos
 
 | CU | Requerimientos principales | Prioridad |
@@ -1368,57 +1316,31 @@ Los casos de uso no detallados aquí (UC2, UC3, UC6, UC13, UC20, UC21 como conte
 | CU-11 | RF08, RF37 | Alta |
 | CU-12 | RF02, RF11, RF12 | Media |
 
----
-
----
-
 ## 5. Diagramas de Actividad
 
 Esta sección presenta los diagramas de actividad correspondientes a los casos de uso detallados en la Sección 4 y a transiciones de estado clave del sistema. Los diagramas se expresan en **notación Mermaid** (`flowchart` y `stateDiagram`), que permite renderizado inmediato en GitHub, Notion, VS Code y exportación a imagen.
 
 Se cubren los 12 casos de uso detallados más un diagrama de estados transversal para el ciclo de vida del acuerdo comercial.
 
----
-
 ### 5.1 AD-01 — Iniciar sesión
 
 > **Diagrama 1** — disponible en el repositorio:
 > [https://github.com/AlexAlvarado1290/Proyecto-Analisis-de-sistemas/blob/main/docs/diagrams/d01.png](https://github.com/AlexAlvarado1290/Proyecto-Analisis-de-sistemas/blob/main/docs/diagrams/d01.png)
->
-> *(El archivo fuente Mermaid correspondiente está en `docs/diagrams/d01.mmd`.)*
-
-
----
 
 ### 5.2 AD-02 — Realizar solicitud de compra
 
 > **Diagrama 2** — disponible en el repositorio:
 > [https://github.com/AlexAlvarado1290/Proyecto-Analisis-de-sistemas/blob/main/docs/diagrams/d02.png](https://github.com/AlexAlvarado1290/Proyecto-Analisis-de-sistemas/blob/main/docs/diagrams/d02.png)
->
-> *(El archivo fuente Mermaid correspondiente está en `docs/diagrams/d02.mmd`.)*
-
-
----
 
 ### 5.3 AD-03 — Aceptar solicitud y registrar acuerdo
 
 > **Diagrama 3** — disponible en el repositorio:
 > [https://github.com/AlexAlvarado1290/Proyecto-Analisis-de-sistemas/blob/main/docs/diagrams/d03.png](https://github.com/AlexAlvarado1290/Proyecto-Analisis-de-sistemas/blob/main/docs/diagrams/d03.png)
->
-> *(El archivo fuente Mermaid correspondiente está en `docs/diagrams/d03.mmd`.)*
-
-
----
 
 ### 5.4 AD-04 — Actualizar seguimiento de la entrega
 
 > **Diagrama 4** — disponible en el repositorio:
 > [https://github.com/AlexAlvarado1290/Proyecto-Analisis-de-sistemas/blob/main/docs/diagrams/d04.png](https://github.com/AlexAlvarado1290/Proyecto-Analisis-de-sistemas/blob/main/docs/diagrams/d04.png)
->
-> *(El archivo fuente Mermaid correspondiente está en `docs/diagrams/d04.mmd`.)*
-
-
----
 
 ### 5.5 AD-05 — Marcar entrega y confirmar recepción
 
@@ -1426,81 +1348,41 @@ Diagrama con dos "carriles" (productor y comprador) que convergen en la confirma
 
 > **Diagrama 5** — disponible en el repositorio:
 > [https://github.com/AlexAlvarado1290/Proyecto-Analisis-de-sistemas/blob/main/docs/diagrams/d05.png](https://github.com/AlexAlvarado1290/Proyecto-Analisis-de-sistemas/blob/main/docs/diagrams/d05.png)
->
-> *(El archivo fuente Mermaid correspondiente está en `docs/diagrams/d05.mmd`.)*
-
-
----
 
 ### 5.6 AD-06 — Consultar catálogo
 
 > **Diagrama 6** — disponible en el repositorio:
 > [https://github.com/AlexAlvarado1290/Proyecto-Analisis-de-sistemas/blob/main/docs/diagrams/d06.png](https://github.com/AlexAlvarado1290/Proyecto-Analisis-de-sistemas/blob/main/docs/diagrams/d06.png)
->
-> *(El archivo fuente Mermaid correspondiente está en `docs/diagrams/d06.mmd`.)*
-
-
----
 
 ### 5.7 AD-07 — Solicitar cancelación
 
 > **Diagrama 7** — disponible en el repositorio:
 > [https://github.com/AlexAlvarado1290/Proyecto-Analisis-de-sistemas/blob/main/docs/diagrams/d07.png](https://github.com/AlexAlvarado1290/Proyecto-Analisis-de-sistemas/blob/main/docs/diagrams/d07.png)
->
-> *(El archivo fuente Mermaid correspondiente está en `docs/diagrams/d07.mmd`.)*
-
-
----
 
 ### 5.8 AD-08 — Reportar inconformidad
 
 > **Diagrama 8** — disponible en el repositorio:
 > [https://github.com/AlexAlvarado1290/Proyecto-Analisis-de-sistemas/blob/main/docs/diagrams/d08.png](https://github.com/AlexAlvarado1290/Proyecto-Analisis-de-sistemas/blob/main/docs/diagrams/d08.png)
->
-> *(El archivo fuente Mermaid correspondiente está en `docs/diagrams/d08.mmd`.)*
-
-
----
 
 ### 5.9 AD-09 — Resolver incidencia (registrar decisión)
 
 > **Diagrama 9** — disponible en el repositorio:
 > [https://github.com/AlexAlvarado1290/Proyecto-Analisis-de-sistemas/blob/main/docs/diagrams/d09.png](https://github.com/AlexAlvarado1290/Proyecto-Analisis-de-sistemas/blob/main/docs/diagrams/d09.png)
->
-> *(El archivo fuente Mermaid correspondiente está en `docs/diagrams/d09.mmd`.)*
-
-
----
 
 ### 5.10 AD-10 — Registrar nuevo usuario
 
 > **Diagrama 10** — disponible en el repositorio:
 > [https://github.com/AlexAlvarado1290/Proyecto-Analisis-de-sistemas/blob/main/docs/diagrams/d10.png](https://github.com/AlexAlvarado1290/Proyecto-Analisis-de-sistemas/blob/main/docs/diagrams/d10.png)
->
-> *(El archivo fuente Mermaid correspondiente está en `docs/diagrams/d10.mmd`.)*
-
-
----
 
 ### 5.11 AD-11 — Editar producto propio
 
 > **Diagrama 11** — disponible en el repositorio:
 > [https://github.com/AlexAlvarado1290/Proyecto-Analisis-de-sistemas/blob/main/docs/diagrams/d11.png](https://github.com/AlexAlvarado1290/Proyecto-Analisis-de-sistemas/blob/main/docs/diagrams/d11.png)
->
-> *(El archivo fuente Mermaid correspondiente está en `docs/diagrams/d11.mmd`.)*
-
-
----
 
 ### 5.12 AD-12 — Acceder al catálogo como invitado
 
 > **Diagrama 12** — disponible en el repositorio:
 > [https://github.com/AlexAlvarado1290/Proyecto-Analisis-de-sistemas/blob/main/docs/diagrams/d12.png](https://github.com/AlexAlvarado1290/Proyecto-Analisis-de-sistemas/blob/main/docs/diagrams/d12.png)
->
-> *(El archivo fuente Mermaid correspondiente está en `docs/diagrams/d12.mmd`.)*
-
-
----
 
 ### 5.13 Diagrama de Estados — Ciclo de vida del Acuerdo Comercial
 
@@ -1508,21 +1390,12 @@ Complemento a los diagramas de actividad: este diagrama de estados sintetiza las
 
 > **Diagrama 13** — disponible en el repositorio:
 > [https://github.com/AlexAlvarado1290/Proyecto-Analisis-de-sistemas/blob/main/docs/diagrams/d13.png](https://github.com/AlexAlvarado1290/Proyecto-Analisis-de-sistemas/blob/main/docs/diagrams/d13.png)
->
-> *(El archivo fuente Mermaid correspondiente está en `docs/diagrams/d13.mmd`.)*
-
-
----
-
----
 
 ## 6. Historias de Usuario
 
 Esta sección formaliza, en el formato solicitado por la rúbrica ("Como … quiero … para …"), las necesidades funcionales del sistema desde la perspectiva de cada rol. Las historias **complementan** los casos de uso detallados en la Sección 4 y cubren los escenarios CRUD o de consulta simple que no recibieron flujo detallado, según la recomendación del docente.
 
 Cada historia incluye **criterios de aceptación** verificables, **prioridad** alineada con la matriz de la Sección 2 y la trazabilidad a los requerimientos funcionales. Las prioridades siguen el criterio "procesos a automatizar": Alta para procesos núcleo, Media para soporte, Baja para accesorios.
-
----
 
 ### 6.1 Historias del Invitado
 
@@ -1552,8 +1425,6 @@ Cada historia incluye **criterios de aceptación** verificables, **prioridad** a
 3. No puedo enviar mensajes ni registrar solicitud desde esa vista.
 
 **Prioridad:** Media | **RF:** RF12
-
----
 
 ### 6.2 Historias del Comprador
 
@@ -1674,8 +1545,6 @@ Cada historia incluye **criterios de aceptación** verificables, **prioridad** a
 3. El cambio queda auditado.
 
 **Prioridad:** Alta | **RF:** RF04
-
----
 
 ### 6.3 Historias del Productor
 
@@ -1832,8 +1701,6 @@ Cada historia incluye **criterios de aceptación** verificables, **prioridad** a
 
 **Prioridad:** Media | **RF:** RF20, RF36
 
----
-
 ### 6.4 Historias del Administrador / Asociación
 
 #### HU-24 — Dar de alta un nuevo usuario
@@ -1989,8 +1856,6 @@ Cada historia incluye **criterios de aceptación** verificables, **prioridad** a
 
 **Prioridad:** Alta | **RF:** RF37
 
----
-
 ### 6.5 Historias transversales (aplican a más de un rol)
 
 #### HU-36 — Operar offline y sincronizar
@@ -2031,8 +1896,6 @@ Cada historia incluye **criterios de aceptación** verificables, **prioridad** a
 
 **Prioridad:** Alta | **RF:** RF03
 
----
-
 ### Resumen por rol
 
 | Rol | Historias | Rango |
@@ -2049,10 +1912,6 @@ Cada historia incluye **criterios de aceptación** verificables, **prioridad** a
 - **Alta:** 22 historias (procesos núcleo de comercialización, autenticación, incidencias y auditoría).
 - **Media:** 16 historias (catálogos maestros, reportes, historial, perfil, offline, notificaciones).
 - **Baja:** 0.
-
----
-
----
 
 ## 7. Prototipos
 
@@ -2181,17 +2040,11 @@ Las capturas de pantalla sugeridas para adjuntar en la versión impresa del DERC
 9. **Historial de ventas** del productor con gráfica.
 10. **Reportes** del administrador con barras y torta.
 
----
-
----
-
 ## 8. Diagrama de Componentes
 
 Conforme a la recomendación del docente, esta sección contiene **dos diagramas complementarios**: el primero describe la **arquitectura de infraestructura** (cómo se despliega el sistema en la nube y cómo interactúan los nodos físicos o lógicos), y el segundo presenta los **componentes de software** (cómo se organiza internamente la aplicación en capas y módulos).
 
 Ambos diagramas usan notación Mermaid para mantener coherencia con las secciones anteriores y ser renderizables directamente en el repositorio.
-
----
 
 ### 8.1 Diagrama general de infraestructura
 
@@ -2199,9 +2052,6 @@ El sistema se despliega siguiendo un modelo **cliente-servidor en la nube**, con
 
 > **Diagrama 14** — disponible en el repositorio:
 > [https://github.com/AlexAlvarado1290/Proyecto-Analisis-de-sistemas/blob/main/docs/diagrams/d14.png](https://github.com/AlexAlvarado1290/Proyecto-Analisis-de-sistemas/blob/main/docs/diagrams/d14.png)
->
-> *(El archivo fuente Mermaid correspondiente está en `docs/diagrams/d14.mmd`.)*
-
 
 **Observaciones de despliegue**
 
@@ -2211,19 +2061,12 @@ El sistema se despliega siguiendo un modelo **cliente-servidor en la nube**, con
 - El **gateway SMS** es un servicio de terceros; su cuenta se factura a la Asociación. Se elige uno con cobertura nacional y precios en el rango de USD 0.05–0.10 por mensaje.
 - Los **clientes** son navegadores ejecutando la PWA. En dispositivos compatibles, el usuario puede "instalar" la app desde el navegador para obtener ícono en el home-screen y experiencia similar a nativa (RNF34).
 
----
-
 ### 8.2 Diagrama de componentes de software
 
 El diagrama de componentes muestra la organización interna de la aplicación en capas y módulos, haciendo explícitos los puntos donde aplicar **patrones de diseño** en la fase final del proyecto (RNF27).
 
 > **Diagrama 15** — disponible en el repositorio:
 > [https://github.com/AlexAlvarado1290/Proyecto-Analisis-de-sistemas/blob/main/docs/diagrams/d15.png](https://github.com/AlexAlvarado1290/Proyecto-Analisis-de-sistemas/blob/main/docs/diagrams/d15.png)
->
-> *(El archivo fuente Mermaid correspondiente está en `docs/diagrams/d15.mmd`.)*
-
-
----
 
 ### 8.3 Descripción de los componentes principales
 
@@ -2265,8 +2108,6 @@ El diagrama de componentes muestra la organización interna de la aplicación en
 |------------|-----------------|
 | **Adaptador SMS** | Contrato interno para envío de SMS; oculta al resto del sistema qué gateway concreto se usa. **Patrón Adapter**, permitiendo cambiar de Twilio a otro proveedor sin modificar los casos de uso. |
 
----
-
 ### 8.4 Patrones de diseño previstos
 
 De acuerdo con el requerimiento **RNF27** y la indicación del docente ("en la última fase deben aplicar patrones de diseño al código fuente"), el diseño reserva ubicaciones explícitas para los siguientes patrones:
@@ -2281,8 +2122,6 @@ De acuerdo con el requerimiento **RNF27** y la indicación del docente ("en la �
 | Comportamiento | **Observer** | Servicio de auditoría reaccionando a eventos de dominio. | Desacoplar el logging de auditoría de la lógica de negocio. |
 
 La fase 3 (desarrollo) documentará en el código los archivos concretos donde cada patrón se materializa y una breve justificación por patrón, acompañando el entregable.
-
----
 
 ### 8.5 Consideraciones de despliegue y costos
 
@@ -2299,10 +2138,6 @@ Aunque el detalle financiero se documenta en el manual operativo anexo al entreg
 | **Total mensual estimado** | | **USD 20 – 57** |
 
 Se estima adicionalmente **USD 100 – 250 por evento** para el mantenimiento correctivo o evolutivo puntual contratado a un proveedor externo, conforme al supuesto de mantenimiento autónomo con soporte contratado por demanda.
-
----
-
----
 
 ## Anexo A — Cuestionarios y Análisis
 
@@ -2434,17 +2269,11 @@ Se reconocen las siguientes limitaciones que el lector del DERCAS debe tener pre
 - Enunciado del Proyecto I: documento impartido en clase.
 - Foro de consultas del curso: respuestas del docente empleadas para refinar los supuestos y la categoría *Legalidad*.
 
----
-
----
-
 ## Anexo B — Stack Tecnológico
 
 Conforme al requerimiento del Proyecto II de **dejar estipuladas las tecnologías para las siguientes entregas**, este anexo consolida y justifica el stack propuesto para la construcción del sistema. Las decisiones se toman atendiendo tres criterios: **consistencia** con el prototipo ya entregado (React + TypeScript), **disponibilidad de patrones de diseño** requeridos en la fase final (RNF27) y **economía operativa** para una organización sin personal técnico propio (RNF31).
 
 El stack se organiza en cuatro capas (cliente, servidor, datos e infraestructura) más servicios transversales de DevOps y terceros.
-
----
 
 ### B.1 Cliente (Frontend PWA)
 
@@ -2469,8 +2298,6 @@ El stack se organiza en cuatro capas (cliente, servidor, datos e infraestructura
 - **Angular** → curva más alta para un equipo estudiantil; React ya está en el prototipo.
 - **Bootstrap / Material UI** → menor control tipográfico y más peso que Tailwind.
 
----
-
 ### B.2 Servidor (Backend API)
 
 | Componente | Tecnología elegida | Versión | Justificación |
@@ -2494,8 +2321,6 @@ El stack se organiza en cuatro capas (cliente, servidor, datos e infraestructura
 - **Django / Laravel** → romper la consistencia TypeScript con Python/PHP aporta poco valor para este alcance.
 - **TypeORM** → más flexible que Prisma pero con tipos menos estrictos y migraciones menos pulidas.
 
----
-
 ### B.3 Base de datos
 
 | Componente | Tecnología elegida | Versión | Justificación |
@@ -2507,8 +2332,6 @@ El stack se organiza en cuatro capas (cliente, servidor, datos e infraestructura
 
 - **MySQL / MariaDB** → viable, pero PostgreSQL tiene mejor soporte de tipos y sintaxis para el tipo de consultas analíticas de los reportes.
 - **MongoDB** → el dominio (usuarios, productos, acuerdos con relaciones) es fuertemente relacional; un modelo documental introduciría complicaciones sin beneficios claros.
-
----
 
 ### B.4 Infraestructura y despliegue
 
@@ -2526,8 +2349,6 @@ El stack se organiza en cuatro capas (cliente, servidor, datos e infraestructura
 - **Vercel** (para API) → excelente para Next.js serverless, no ideal para API con conexión persistente y jobs.
 - **Heroku** → costos aumentados tras 2022, alternativas equivalentes más baratas.
 
----
-
 ### B.5 DevOps y calidad
 
 | Componente | Tecnología elegida | Justificación |
@@ -2539,8 +2360,6 @@ El stack se organiza en cuatro capas (cliente, servidor, datos e infraestructura
 | Hooks pre-commit | **husky** + **lint-staged** | Evita subir código sin lint ni formato. |
 | Contenedores (opcional) | **Docker** + **Docker Compose** | Reproduce entorno local para pruebas de integración. |
 
----
-
 ### B.6 Servicios de terceros
 
 | Servicio | Proveedor | Uso | Plan estimado |
@@ -2548,8 +2367,6 @@ El stack se organiza en cuatro capas (cliente, servidor, datos e infraestructura
 | SMS | **Twilio** | Código de verificación al alta (RF26) y recuperación de PIN (RF05). | Pay-as-you-go; ~USD 0.05–0.10 por SMS. |
 | Dominio | *Registrador a elección* | URL pública del sistema. | USD 10–15/año. |
 | Almacenamiento de respaldos | Del proveedor de DB | Backups cifrados. | Incluido en el plan de DB. |
-
----
 
 ### B.7 Mapa Patrones de Diseño ↔ Stack
 
@@ -2563,8 +2380,6 @@ Anclaje explícito del requerimiento **RNF27** (patrones de diseño obligatorios
 | **State** | Clase `AgreementStateMachine` que define las transiciones válidas del acuerdo; cada estado hereda de una clase base común. |
 | **Strategy** | `NotificationChannelStrategy` decide entre in-app y SMS según el evento y las preferencias del usuario. |
 | **Observer** | Sistema de eventos de NestJS (`@nestjs/event-emitter`) conectando los servicios de negocio con el `AuditService` de manera desacoplada. |
-
----
 
 ### B.8 Resumen ejecutivo del stack
 
@@ -2580,11 +2395,7 @@ Anclaje explícito del requerimiento **RNF27** (patrones de diseño obligatorios
 
 Este stack queda **fijado para la fase III (desarrollo)** como indica el Proyecto II. Cualquier cambio posterior deberá justificarse en una adenda al presente documento.
 
----
-
 *Fin del Anexo B y del documento DERCAS del Proyecto II.*
-
----
 
 ## Índice de referencias rápidas
 
