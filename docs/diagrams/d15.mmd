@@ -1,0 +1,76 @@
+flowchart TB
+    subgraph Cliente["Cliente - PWA React + Vite + TypeScript"]
+        direction TB
+        UI[Capa Presentación<br/>React Components + Tailwind]
+        Routes[Router<br/>react-router]
+        State[Gestión de Estado<br/>Context + hooks]
+        ServiceWorker[Service Worker<br/>Cache estratégico]
+        IDB[(IndexedDB<br/>catálogo cacheado y cola de sync)]
+        SyncMod[Módulo de Sincronización<br/>Queue + Retry]
+        ApiClient[Cliente HTTP<br/>Adapter con fetch]
+
+        UI --> Routes
+        Routes --> State
+        State --> ApiClient
+        State --> SyncMod
+        SyncMod --> IDB
+        SyncMod --> ApiClient
+        ServiceWorker --> IDB
+    end
+
+    subgraph API["Servidor - API REST stateless"]
+        direction TB
+        Auth[Controlador Auth<br/>Login/PIN/Recuperación]
+        Products[Controlador Productos]
+        Agreements[Controlador Acuerdos<br/>+ máquina de estados]
+        Users[Controlador Usuarios]
+        Catalogs[Controlador Catálogos Maestros<br/>Categorías/Unidades/PuntosEntrega]
+        Incidences[Controlador Incidencias]
+        Reports[Controlador Reportes]
+        Notifications[Controlador Notificaciones]
+
+        Middleware[Middleware transversal<br/>RBAC + Rate Limit + CORS]
+
+        Auth --> Middleware
+        Products --> Middleware
+        Agreements --> Middleware
+        Users --> Middleware
+        Catalogs --> Middleware
+        Incidences --> Middleware
+        Reports --> Middleware
+        Notifications --> Middleware
+    end
+
+    subgraph Negocio["Capa de Negocio"]
+        direction TB
+        UseCases[Casos de Uso / Servicios de Aplicación]
+        StateMachine[State Machine del Acuerdo<br/>- Patrón State -]
+        AuditService[Servicio de Auditoría<br/>- Patrón Observer -]
+        NotifService[Servicio de Notificaciones<br/>- Patrón Strategy: in-app / SMS -]
+        Validators[Validadores de dominio]
+    end
+
+    subgraph Datos["Capa de Persistencia"]
+        direction TB
+        Repos[Repositorios<br/>- Patrón Repository -]
+        ORM[ORM: Prisma / TypeORM]
+        DB[(PostgreSQL)]
+        Repos --> ORM
+        ORM --> DB
+    end
+
+    subgraph External["Integraciones externas"]
+        SMSAdapter[Adaptador SMS<br/>- Patrón Adapter -]
+        SMSProvider[Gateway SMS externo]
+        SMSAdapter --> SMSProvider
+    end
+
+    ApiClient -- HTTPS JSON --> Middleware
+    Middleware --> UseCases
+    UseCases --> StateMachine
+    UseCases --> Validators
+    UseCases --> Repos
+    UseCases --> AuditService
+    UseCases --> NotifService
+    NotifService --> SMSAdapter
+    AuditService --> Repos

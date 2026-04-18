@@ -1,0 +1,18 @@
+flowchart TD
+    Start([Inicio]) --> Open[Usuario abre sección Catálogo]
+    Open --> Net{¿Hay conexión?}
+    Net -- No --> Cache[Cargar catálogo cacheado]
+    Cache --> Banner[Mostrar aviso 'versión local']
+    Banner --> View
+    Net -- Sí --> Fetch[Cargar productos disponibles]
+    Fetch --> View[Mostrar lista ordenada por disponibilidad]
+    View --> Filter{¿Usuario filtra o busca?}
+    Filter -- Sí --> Apply[Aplicar filtro/orden]
+    Apply --> View
+    Filter -- No --> Detail{¿Clic en producto?}
+    Detail -- Sí --> Show[Ver detalle del producto]
+    Show --> Action{¿Rol permite acción?}
+    Action -- Invitado --> Login[Redirigir a login]
+    Login --> EndGuest([Fin: sin transacción])
+    Action -- Comprador --> RequestFlow[Ir a AD-02]
+    Detail -- No --> EndView([Fin: solo consulta])

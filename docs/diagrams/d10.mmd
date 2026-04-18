@@ -1,0 +1,21 @@
+flowchart TD
+    Start([Inicio]) --> Open[Admin entra a 'Gestión de Usuarios']
+    Open --> New[Presionar 'Alta de Usuario']
+    New --> Form[Formulario: tipo, DPI, nombre, teléfono, dirección]
+    Form --> Fill[Admin completa los campos]
+    Fill --> Submit[Confirmar alta]
+    Submit --> DpiUnique{¿DPI único?}
+    DpiUnique -- No --> ErrD[Error: DPI ya registrado]
+    ErrD --> Fill
+    DpiUnique -- Sí --> PhoneUnique{¿Teléfono único?}
+    PhoneUnique -- No --> ErrP[Error: teléfono ya registrado]
+    ErrP --> Fill
+    PhoneUnique -- Sí --> Create[Crear usuario con PIN=0000 y estado=activo]
+    Create --> SMS[Invocar gateway SMS código de 6 dígitos]
+    SMS --> SMSok{¿SMS enviado?}
+    SMSok -- No --> PendMark[Marcar teléfono no verificado - reintento]
+    PendMark --> Audit
+    SMSok -- Sí --> VerifMark[Marcar teléfono verificado]
+    VerifMark --> Audit[Registro en auditoría]
+    Audit --> Done[Mostrar confirmación al admin]
+    Done --> EndOk([Fin: usuario creado])

@@ -1,0 +1,40 @@
+flowchart LR
+    subgraph ClienteZona["Clientes (comunidad La Esperanza)"]
+        Movil[Smartphone del productor/comprador<br/>Navegador + PWA instalada]
+        PC[PC / laptop de la Asociación<br/>Navegador]
+    end
+
+    subgraph Internet["Internet · Conectividad variable"]
+        CDN[CDN / GitHub Pages<br/>Sirve bundle estático PWA]
+    end
+
+    subgraph Nube["Nube del proveedor (proveedor externo - costo recurrente)"]
+        LB[Load Balancer<br/>HTTPS + TLS 1.2]
+        API1[API Node 1<br/>Stateless]
+        API2[API Node 2<br/>Stateless - escalado futuro]
+        DB[(Base de datos relacional<br/>PostgreSQL gestionado)]
+        Backup[(Almacenamiento de respaldos<br/>cifrados)]
+        Logs[Servicio de logs<br/>y monitoreo]
+    end
+
+    subgraph Terceros["Servicios de terceros"]
+        SMS[Gateway SMS<br/>Twilio o equivalente]
+    end
+
+    Movil -- HTTPS --> CDN
+    PC -- HTTPS --> CDN
+    CDN -- bundle JS/CSS/HTML --> Movil
+    CDN -- bundle --> PC
+
+    Movil -- HTTPS API --> LB
+    PC -- HTTPS API --> LB
+    LB --> API1
+    LB --> API2
+    API1 --> DB
+    API2 --> DB
+    API1 -. backups diarios .-> Backup
+    API1 -. logs estructurados .-> Logs
+    API1 -- SMS verificación/recuperación --> SMS
+    API2 -- SMS verificación/recuperación --> SMS
+
+    Movil -. cache local IndexedDB .- Movil

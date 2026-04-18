@@ -1,0 +1,29 @@
+stateDiagram-v2
+    [*] --> solicitado : Comprador crea solicitud (CU-02)
+    solicitado --> aceptado : Productor acepta con datos (CU-03)
+    solicitado --> cancelado : Productor rechaza o Comprador cancela (CU-07)
+
+    aceptado --> preparando : Productor inicia preparación (CU-04)
+    aceptado --> cancelado : Cualquiera cancela (CU-07)
+
+    preparando --> programado : Productor confirma programación (CU-04)
+    preparando --> cancelado : Cancelación (CU-07)
+
+    programado --> en_ruta : Productor inicia ruta (CU-04)
+    programado --> cancelado : Cancelación (CU-07)
+
+    en_ruta --> entregado_productor : Productor marca entregada (CU-05)
+    en_ruta --> cancelado : Admin fuerza cancelación (UC27)
+
+    entregado_productor --> confirmado_comprador : Comprador confirma recepción (CU-05)
+    entregado_productor --> incidencia : Comprador reporta inconformidad (CU-08)
+    entregado_productor --> incumplida_por_tiempo : 7 días sin confirmación (admin)
+
+    confirmado_comprador --> [*] : estado_final = confirmada
+    incumplida_por_tiempo --> [*] : estado_final = incumplida
+    cancelado --> [*] : estado_final = cancelada
+
+    incidencia --> resuelta_confirmada : Comité resuelve a favor del comprador
+    incidencia --> resuelta_descartada : Comité descarta el reporte
+    resuelta_confirmada --> [*] : estado_final = incumplida
+    resuelta_descartada --> confirmado_comprador : Volver al flujo normal

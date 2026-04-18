@@ -1,0 +1,14 @@
+flowchart TD
+    Start([Inicio]) --> Open[Productor abre detalle del acuerdo]
+    Open --> Show[Sistema muestra botón del estado actual]
+    Show --> Click[Productor presiona avance]
+    Click --> TransitionModal[Modal para comentario de seguimiento]
+    TransitionModal --> Comment[Productor redacta comentario o lo deja vacío]
+    Comment --> Confirm[Confirmar]
+    Confirm --> ValidTrans{¿Transición contigua válida?}
+    ValidTrans -- No --> Err[Rechazo: transición inválida]
+    Err --> EndFail([Fin: sin cambios])
+    ValidTrans -- Sí --> Update[Actualizar estado del acuerdo]
+    Update --> Log[Agregar entrada a bitácora con usuario y fecha-hora]
+    Log --> Notify[Notificar al comprador]
+    Notify --> EndOk([Fin: estado actualizado])

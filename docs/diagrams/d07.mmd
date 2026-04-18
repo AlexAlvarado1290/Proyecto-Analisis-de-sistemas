@@ -1,0 +1,18 @@
+flowchart TD
+    Start([Inicio]) --> Open[Usuario abre detalle del acuerdo]
+    Open --> State{¿Acuerdo confirmado o cancelado?}
+    State -- Sí --> Deny[Rechazo: no se puede cancelar]
+    Deny --> EndFail([Fin: sin cambios])
+    State -- No --> Click[Usuario presiona cancelar/rechazar]
+    Click --> Modal[Modal: motivo + observación]
+    Modal --> Reason[Usuario selecciona motivo]
+    Reason --> Obs[Usuario redacta observación opcional]
+    Obs --> Submit[Confirmar cancelación]
+    Submit --> Valid{¿Motivo vacío?}
+    Valid -- Sí --> ErrR[Error: motivo obligatorio]
+    ErrR --> Reason
+    Valid -- No --> UpdCancel[Estado: cancelado]
+    UpdCancel --> Release[Liberar cantidad reservada]
+    Release --> Log[Entrada en bitácora]
+    Log --> Notify[Notificar a contraparte]
+    Notify --> EndOk([Fin: acuerdo cancelado])

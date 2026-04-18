@@ -1,0 +1,17 @@
+flowchart TD
+    Start([Inicio]) --> Prod[Productor: estado en_ruta]
+    Prod --> Mark[Marcar como entregada]
+    Mark --> ModalP[Modal comentario seguimiento]
+    ModalP --> UpdP[Estado: entregado_productor]
+    UpdP --> NotifyB[Notificar al comprador]
+
+    NotifyB --> Buyer{Comprador actúa}
+    Buyer -- Confirma recepción --> UpdB[Estado: confirmado_comprador]
+    UpdB --> Final[estado_final = confirmada]
+    Final --> LogOk[Bitácora: confirmación]
+    LogOk --> EndOk([Fin: acuerdo cerrado])
+
+    Buyer -- Reporta inconformidad --> Report[Ir a AD-08]
+    Buyer -- Sin acción 7 días --> AdminStep[Admin: marcar incumplida con justificación]
+    AdminStep --> FinalI[estado_final = incumplida]
+    FinalI --> EndIncumplida([Fin: incumplida])

@@ -1,0 +1,20 @@
+flowchart TD
+    Start([Inicio]) --> Browse[Comprador navega catálogo]
+    Browse --> Select[Selecciona producto]
+    Select --> Detail[Sistema muestra detalle]
+    Detail --> Qty[Comprador ingresa cantidad]
+    Qty --> QtyOk{¿Cantidad dentro del rango?}
+    QtyOk -- No --> ErrQty[Error: cantidad inválida]
+    ErrQty --> Qty
+    QtyOk -- Sí --> Msg[Ingresa mensaje opcional]
+    Msg --> Submit[Confirmar solicitud]
+    Submit --> Avail{¿Producto aún disponible?}
+    Avail -- No --> ErrUn[Error: no disponible]
+    ErrUn --> Browse
+    Avail -- Sí --> Account{¿Cuenta del comprador activa?}
+    Account -- No --> ErrAcc[Rechazo por cuenta suspendida]
+    ErrAcc --> EndFail([Fin: sin solicitud])
+    Account -- Sí --> Create[Crear solicitud en estado 'solicitado']
+    Create --> Log[Registrar entrada inicial en bitácora]
+    Log --> Notify[Notificar al productor]
+    Notify --> EndOk([Fin: solicitud creada])

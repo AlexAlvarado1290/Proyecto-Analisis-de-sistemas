@@ -1,0 +1,14 @@
+flowchart TD
+    Start([Inicio]) --> Open[Invitado abre URL pública]
+    Open --> Login[Sistema muestra login]
+    Login --> Guest[Presiona 'Ver catálogo sin cuenta']
+    Guest --> Mark[Marcar rol=guest sin persistencia]
+    Mark --> Catalog[Redirigir al catálogo]
+    Catalog --> Browse[Invitado navega catálogo]
+    Browse --> Detail{¿Ver detalle?}
+    Detail -- Sí --> Show[Mostrar detalle del producto]
+    Show --> Act{¿Acción transaccional?}
+    Act -- Sí --> Redirect[Redirigir a login]
+    Redirect --> EndLogin([Fin: requiere cuenta])
+    Act -- No --> Browse
+    Detail -- No --> EndBrowse([Fin: solo consulta])

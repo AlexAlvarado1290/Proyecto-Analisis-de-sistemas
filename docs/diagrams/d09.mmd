@@ -1,0 +1,16 @@
+flowchart TD
+    Start([Inicio]) --> Ext[Comité delibera FUERA del sistema]
+    Ext --> Open[Admin abre incidencia en el sistema]
+    Open --> Click[Presionar 'Resolver Incidencia']
+    Click --> Modal[Modal: nuevo estado + resolución]
+    Modal --> Pick[Seleccionar estado: en_revision, resuelto o descartado]
+    Pick --> Resol[Escribir resolución]
+    Resol --> Confirm[Confirmar]
+    Confirm --> Val{¿estado=resuelto y resolución vacía?}
+    Val -- Sí --> Err[Botón deshabilitado]
+    Err --> Resol
+    Val -- No --> Upd[Actualizar incidencia]
+    Upd --> LogAcc[Bitácora del acuerdo: resolución]
+    LogAcc --> Audit[Registro de auditoría del admin]
+    Audit --> Notify[Notificar a ambas partes]
+    Notify --> EndOk([Fin: incidencia resuelta])

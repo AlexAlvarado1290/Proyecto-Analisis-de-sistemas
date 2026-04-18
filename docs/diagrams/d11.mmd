@@ -1,0 +1,19 @@
+flowchart TD
+    Start([Inicio]) --> List[Productor abre 'Mis Productos']
+    List --> Pick[Selecciona producto]
+    Pick --> Own{¿El producto le pertenece?}
+    Own -- No --> Deny[403 No autorizado]
+    Deny --> EndFail([Fin: sin cambios])
+    Own -- Sí --> EditForm[Sistema carga formulario con datos]
+    EditForm --> Modify[Productor modifica campos]
+    Modify --> Submit[Confirmar cambios]
+    Submit --> Valid{¿Campos válidos?}
+    Valid -- No --> Err[Errores inline]
+    Err --> Modify
+    Valid -- Sí --> QtyCheck{¿Cantidad = 0?}
+    QtyCheck -- Sí --> Agot[Estado del producto: agotado]
+    Agot --> Save
+    QtyCheck -- No --> Save[Persistir cambios]
+    Save --> Audit[Auditoría del cambio]
+    Audit --> Redirect[Redirigir a 'Mis Productos']
+    Redirect --> EndOk([Fin: producto actualizado])

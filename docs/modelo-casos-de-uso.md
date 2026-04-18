@@ -2,6 +2,11 @@
 
 Diagrama de actores y casos de uso del sistema.
 
+Notas:
+- UC15 (Registrar acuerdo comercial) y UC16 (Programar entrega) se ejecutan en un único paso dentro del prototipo: al aceptar la solicitud se capturan `precio_final`, `fecha_programada` y `punto_entrega`.
+- UC18 (Marcar entrega realizada) y UC8 (Confirmar recepción) cierran el acuerdo: la confirmación del comprador establece `estado_final = confirmada`; de lo contrario, el admin puede dejarlo en `incumplida`.
+- Cada transición del acuerdo pasa por UC17 (Actualizar seguimiento), que captura comentario, usuario y fecha_hora en la bitácora.
+
 ```mermaid
 flowchart LR
     Invitado[Invitado]
@@ -22,12 +27,12 @@ flowchart LR
         UC10((Reportar inconformidad))
 
         UC11((Gestionar mis productos))
-        UC12((Actualizar cantidades y precio referencial))
+        UC12((Editar producto: cantidad / precio ref.))
         UC13((Consultar solicitudes recibidas))
         UC14((Aceptar o rechazar solicitud))
         UC15((Registrar acuerdo comercial))
         UC16((Programar entrega))
-        UC17((Actualizar seguimiento de entrega))
+        UC17((Actualizar seguimiento))
         UC18((Marcar entrega realizada))
         UC19((Justificar incumplimiento))
         UC20((Consultar historial de ventas))
@@ -43,6 +48,7 @@ flowchart LR
         UC29((Supervisar productos, acuerdos y entregas))
         UC30((Gestionar categorías de producto))
         UC31((Gestionar unidades de medida))
+        UC34((Gestionar puntos de entrega))
 
         UC32((Gestionar mi perfil))
         UC33((Cambiar PIN))
@@ -91,14 +97,18 @@ flowchart LR
     Admin --> UC29
     Admin --> UC30
     Admin --> UC31
+    Admin --> UC34
     Admin --> UC32
     Admin --> UC33
 
     UC4 -. incluye .-> UC5
     UC14 -. incluye .-> UC15
     UC15 -. incluye .-> UC16
-    UC16 -. incluye .-> UC17
-    UC17 -. incluye .-> UC18
+    UC16 -. usa .-> UC34
+    UC15 -. genera .-> UC17
+    UC14 -. genera .-> UC17
+    UC18 -. genera .-> UC17
+    UC8 -. genera .-> UC17
     UC9 -. extiende .-> UC26
     UC10 -. extiende .-> UC26
     UC19 -. extiende .-> UC26
@@ -109,3 +119,11 @@ flowchart LR
     UC11 -. usa .-> UC30
     UC11 -. usa .-> UC31
 ```
+
+## Cambios respecto a la versión anterior
+
+1. **UC12 reformulado**: antes era genérico "Actualizar cantidades y precio referencial"; ahora es "Editar producto" con alcance explícito (nombre, categoría, descripción, unidad, cantidad y precio referencial). El prototipo expone este caso en `/products/:id/edit`.
+2. **UC15 + UC16 como paso único al aceptar**: el prototipo integra el registro del acuerdo (precio_final, fecha_programada) y la programación de entrega (punto_entrega del catálogo) en el mismo flujo de aceptación. Se conservan como casos de uso separados por claridad del análisis.
+3. **UC17 incluye comentario + usuario + fecha_hora**: toda transición de estado del acuerdo genera una entrada en la bitácora de seguimiento. Se añadieron flechas `genera` desde UC14, UC15, UC18 y UC8.
+4. **UC34 nuevo**: "Gestionar puntos de entrega" como caso de uso explícito del administrador (antes el punto de entrega era un campo libre).
+5. **Estados intermedios formalizados**: el ciclo del acuerdo incluye `preparando` y `en_ruta` además de los estados originales (documentado en el modelo ER, sección "Dominios de valores").

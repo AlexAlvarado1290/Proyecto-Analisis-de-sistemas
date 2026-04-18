@@ -1,0 +1,20 @@
+flowchart TD
+    Start([Inicio]) --> Open[Productor abre solicitud]
+    Open --> Choice{¿Aceptar o rechazar?}
+    Choice -- Rechazar --> CancelFlow[Ir a flujo de rechazo AD-07]
+    Choice -- Aceptar --> Modal[Mostrar modal de aceptación]
+    Modal --> Fill[Capturar precio_final, fecha_programada, punto_entrega, observaciones]
+    Fill --> Validate{¿Datos válidos?}
+    Validate -- No --> Err[Mostrar errores inline]
+    Err --> Fill
+    Validate -- Sí --> CheckPoint{¿Punto de entrega activo?}
+    CheckPoint -- No --> ErrPoint[Rechazar punto]
+    ErrPoint --> Fill
+    CheckPoint -- Sí --> CheckDate{¿Fecha futura?}
+    CheckDate -- No --> ErrDate[Rechazar fecha]
+    ErrDate --> Fill
+    CheckDate -- Sí --> Update[Actualizar acuerdo a 'aceptado' con datos]
+    Update --> Reserve[Reservar cantidad en producto]
+    Reserve --> LogEntry[Entrada en bitácora]
+    LogEntry --> Notify[Notificar al comprador]
+    Notify --> EndOk([Fin: acuerdo formalizado])

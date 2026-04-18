@@ -1,0 +1,18 @@
+flowchart TD
+    Start([Inicio]) --> Open[Usuario abre detalle del acuerdo]
+    Open --> CheckAge{¿Cancelado hace más de 30 días?}
+    CheckAge -- Sí --> Deny[Rechazo: fuera de plazo]
+    Deny --> EndFail([Fin: sin reporte])
+    CheckAge -- No --> Click[Presionar 'Reportar Inconformidad']
+    Click --> Modal[Modal: tipo + descripción]
+    Modal --> Type[Seleccionar tipo]
+    Type --> Desc[Ingresar descripción]
+    Desc --> Submit[Enviar reporte]
+    Submit --> ValidDesc{¿Descripción vacía?}
+    ValidDesc -- Sí --> Err[Botón deshabilitado]
+    Err --> Desc
+    ValidDesc -- No --> Create[Crear incidencia en 'abierto']
+    Create --> LogAcc[Entrada en bitácora del acuerdo]
+    LogAcc --> Notify[Notificar al Administrador]
+    Notify --> Msg[Mensaje al reportante: 'Reporte enviado']
+    Msg --> EndOk([Fin: incidencia registrada])

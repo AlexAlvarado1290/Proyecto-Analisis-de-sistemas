@@ -1,0 +1,17 @@
+flowchart TD
+    Start([Inicio]) --> Open[Usuario abre la app]
+    Open --> Show[Sistema muestra formulario de login]
+    Show --> Enter[Usuario ingresa teléfono y PIN]
+    Enter --> Submit[Usuario confirma]
+    Submit --> Validate{¿Credenciales válidas?}
+    Validate -- No --> Count{¿Intentos >= 5?}
+    Count -- Sí --> Block[Bloquear 10 min]
+    Block --> EndFail([Fin: sesión no creada])
+    Count -- No --> ShowErr[Mostrar error genérico]
+    ShowErr --> Show
+    Validate -- Sí --> Status{¿Estado de cuenta?}
+    Status -- Bloqueada --> MsgBlocked[Mostrar mensaje bloqueo]
+    MsgBlocked --> EndFail
+    Status -- Activa o Suspendida --> Token[Generar token sesión 8h]
+    Token --> Redirect[Redirigir a panel según rol]
+    Redirect --> EndOk([Fin: sesión activa])
